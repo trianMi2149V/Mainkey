@@ -151,17 +151,23 @@
 
                     // Gọi API để lấy key
                     fetch("https://815cb159-9944-4c88-bea9-2c0e3d0fd5b7-00-455zjhzpizao.pike.replit.dev/")
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data && data.key) {
-                                keyInput.value = data.key;
-                                keyInput.style.display = 'inline-block';
-                                copyBtn.disabled = false;
-                                countdownTimer.textContent = "Sao chép Key để sử dụng cluod!";
-                                waitingTitle.style.display = 'none';
-                            } else {
-                                countdownTimer.textContent = "Không thể lấy key. Vui lòng thử lại.";
+                        .then(response => response.text())
+                        .then(text => {
+                            let key = text;
+                            try {
+                                const json = JSON.parse(text);
+                                if (json.key) {
+                                    key = json.key;
+                                }
+                            } catch (e) {
+                                // Không phải JSON, dùng text làm key
                             }
+
+                            keyInput.value = key.trim();
+                            keyInput.style.display = 'inline-block';
+                            copyBtn.disabled = false;
+                            countdownTimer.textContent = "Sao chép Key để sử dụng cluod!";
+                            waitingTitle.style.display = 'none';
                         })
                         .catch(err => {
                             console.error("Lỗi khi lấy key:", err);
