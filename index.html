@@ -11,7 +11,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f9;
+            background-color: #f4f4f9
             margin: 0;
         }
 
@@ -23,7 +23,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-
+        
         .key-title {
             font-size: 18px;
             font-weight: bold;
@@ -39,27 +39,27 @@
         }
 
         .key-box input {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-            display: none;
-            background-color: #f0f0f0;
-        }
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    display: none;
+    background-color: #f0f0f0; /* Xám nhạt */
+}
 
         .copy-area button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #a5c7de;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: not-allowed;
-            transition: background-color 0.3s;
-        }
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #a5c7de; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: background-color 0.3s;
+}
 
         .copy-area button:hover {
             background-color: #64b5f6;
@@ -106,13 +106,15 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container">       
         <div class="waiting-title" id="waitingTitle">Vui lòng chờ 10 giây để lấy key📥</div>
+
         <div class="key-title">KEY EASYNFUN MOD</div>
+
         <div class="sub-title">1 Key = vô hạn giờ chơi cluod</div>
 
         <div class="key-box">
-            <input type="text" id="keyInput" readonly>
+            <input type="text" id="keyInput" value="KEY_YATAKIROBLOX" readonly>
         </div>
 
         <div class="copy-area">
@@ -141,42 +143,21 @@
         const successMessage = document.getElementById("successMessage");
         const nextStep = document.getElementById("nextStep");
         const waitingTitle = document.getElementById("waitingTitle");
-
+        
         function startCountdown() {
-            const countdownInterval = setInterval(function () {
+            const countdownInterval = setInterval(function() {
                 countdown--;
                 countdownTimer.textContent = countdown + " giây còn lại";
                 if (countdown <= 0) {
                     clearInterval(countdownInterval);
-
-                    // Gọi API để lấy key
-                    fetch("https://815cb159-9944-4c88-bea9-2c0e3d0fd5b7-00-455zjhzpizao.pike.replit.dev/")
-                        .then(response => response.text())
-                        .then(text => {
-                            let key = text;
-                            try {
-                                const json = JSON.parse(text);
-                                if (json.key) {
-                                    key = json.key;
-                                }
-                            } catch (e) {
-                                // Không phải JSON, dùng text làm key
-                            }
-
-                            keyInput.value = key.trim();
-                            keyInput.style.display = 'inline-block';
-                            copyBtn.disabled = false;
-                            countdownTimer.textContent = "Sao chép Key để sử dụng cluod!";
-                            waitingTitle.style.display = 'none';
-                        })
-                        .catch(err => {
-                            console.error("Lỗi khi lấy key:", err);
-                            countdownTimer.textContent = "Lỗi khi gọi API.";
-                        });
+                    keyInput.style.display = 'inline-block';
+                    copyBtn.disabled = false;
+                    countdownTimer.textContent = "Sao chép Key để sử dụng cluod!";
+                    waitingTitle.style.display = 'none';
                 }
             }, 1000);
         }
-
+        
         function copyKey() {
             keyInput.select();
             keyInput.setSelectionRange(0, 99999);
